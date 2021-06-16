@@ -12,7 +12,6 @@ usn = []
 classNames = []
 time = []
 phoneno = []
-
 mylist = os.listdir(path)
 print(mylist)
 
