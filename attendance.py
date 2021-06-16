@@ -4,6 +4,7 @@ import face_recognition
 import os
 from datetime import datetime
 #import pywhatkit
+# test 2
 path = 'Imgattendance'
 images = []
 cn = []
