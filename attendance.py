@@ -4,7 +4,6 @@ import face_recognition
 import os
 from datetime import datetime
 #import pywhatkit
-# test 2
 path = 'Imgattendance'
 images = []
 cn = []
@@ -18,13 +17,6 @@ print(mylist)
 for cl in mylist:
     curimg = cv2.imread(f'{path}/{cl}')
     images.append(curimg)
-    # cn.append(os.path.splitext(cl)[0])
-# for n in cn:
-#         usn.append(n.split('-')[1])
-# print(usn)
-# for n in cn:
-#         classNames.append(n.split('-')[0])
-# print(classNames)
 
 
 def extractNames():
@@ -34,7 +26,7 @@ def extractNames():
             entry = line.split(',')
             classNames.append(entry[0])
             usn.append(entry[1])
-            phoneno.append(entry[2])
+            #phoneno.append(entry[2])
 
 
 extractNames()
@@ -52,7 +44,7 @@ def encoding(images):
     return encodingList
 
 
-def markattendance(name, usn, phoneno):
+def markattendance(name, usn):
     with open('attendance.csv', 'r+') as f:
         mydatalist = f.readlines()
         namelist = []
@@ -69,7 +61,7 @@ def markattendance(name, usn, phoneno):
 
 
 encodelist = encoding(images)
-# cap=cv2.VideoCapture(0)
+#cap=cv2.VideoCapture(0)
 
 
 while True:
@@ -89,15 +81,15 @@ while True:
         if match[matchIndex]:
             name = classNames[matchIndex].upper()
             usnAttended = usn[matchIndex]
-            student_phoneno = phoneno[matchIndex]
+            #student_phoneno = phoneno[matchIndex]
 
             y1, x2, y2, x1 = faceloc
             #y1, x2, y2, x1=y1*4,x2*4,y2*4,x1*4
             cv2.rectangle(imgs, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.rectangle(imgs, (x1, y2-35), (x2, y2), (0, 255, 0), cv2.FILLED)
             cv2.putText(imgs, name, (x1+6, y2-6),
-                        cv2.FONT_ITALIC, 1, (255, 255, 255), 2)
-            markattendance(name, usnAttended, student_phoneno)
+            cv2.FONT_ITALIC, 1, (255, 255, 255), 2)
+            markattendance(name, usnAttended)
 
     cv2.imshow('Image', imgs)
     cv2.waitKey(0)
